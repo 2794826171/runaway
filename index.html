@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0b0b">
+  <meta name="description" content="依据一张网页截图复刻的讽刺风格非官方演示页面，不提供真实支付或退款服务。">
+  <title>我们跑路了 · 截图复刻演示页</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #0b0b0b;
+      --red: #e00817;
+      --body-text: #999;
+      --divider: #1d1d1d;
+      --btn: #1d1d1d;
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--page); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--page);
+      color: var(--body-text);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page {
+      position: relative;
+      width: min(598px, calc(100% - 34px));
+      margin: 0 auto;
+      padding: 27px 0 26px;
+    }
+    .caution-tape {
+      height: 32px;
+      width: 100%;
+      background: #ec0015;
+      color: white;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      transform: rotate(-1.45deg);
+      transform-origin: center center;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .caution-tape span {
+      display: block;
+      flex: none;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: .7px;
+      word-spacing: 0;
+      transform: translateY(-1px);
+    }
+    .headline { margin-top: 28px; }
+    h1 {
+      margin: 0;
+      color: var(--red);
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+    .subhead {
+      font-size: 14px;
+      line-height: 22px;
+      color: #777;
+      margin: 0;
+    }
+    .subhead strong { color: #ae1320; font-weight: 800; }
+    .stamp {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: 94px;
+      height: 94px;
+      border: 3px solid #900512;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #990b19;
+      font-size: 17px;
+      line-height: 1.3;
+      font-weight: 900;
+      text-align: center;
+      transform: rotate(-18deg);
+      user-select: none;
+      z-index: 2;
+    }
+    .first-part { margin-top: 26px; }
+    h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 26px;
+      letter-spacing: .4px;
+      color: #cf1a28;
+    }
+    .orange { color: #f1951b; }
+    .copy {
+      margin: 0;
+      font-size: 14px;
+      line-height: 28px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+    .copy strong { font-weight: 800; color: #bfbfbf; }
+    hr {
+      border: 0;
+      border-top: 1px dotted var(--divider);
+      height: 0;
+      margin: 24px 0 25px;
+    }
+    .truth-heading { margin-bottom: 9px; }
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 26px;
+    }
+    button {
+      min-width: 0;
+      height: 46px;
+      border: 1px solid #2b2b2b;
+      background: var(--btn);
+      color: #bcbcbc;
+      border-radius: 0;
+      cursor: pointer;
+      font: 800 14px/1 "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    button:hover, button:focus-visible { border-color: #555; background: #252525; }
+    button:focus-visible { outline: 2px solid #8b1720; outline-offset: 2px; }
+    button.pay {
+      border-color: #79131b;
+      color: #e14a55;
+    }
+    button.pay:hover { border-color: #c92436; }
+    .choices .wide { grid-column: span 2; }
+    .small-note {
+      font-size: 11px;
+      color: #3b3b3b;
+      text-align: center;
+      margin: 20px 0 0;
+    }
+    dialog {
+      width: min(360px, calc(100vw - 40px));
+      background: #1c1c1c;
+      border: 1px solid #6b1420;
+      border-radius: 0;
+      color: #ccc;
+      padding: 23px;
+      box-shadow: 0 12px 50px rgba(0,0,0,.55);
+    }
+    dialog::backdrop { background: rgba(0,0,0,.72); }
+    dialog h3 { font-size: 19px; color: #df1a2b; margin: 0 0 12px; }
+    dialog p { line-height: 1.8; font-size: 14px; margin: 0 0 20px; }
+    dialog button { min-width: 100px; }
+    @media (max-width: 680px) {
+      .page { padding-top: 31px; }
+      .headline { margin-top: 38px; }
+      h1 { font-size: clamp(41px, 10vw, 68px); letter-spacing: -1px; }
+      .stamp { top: 94px; right: 13px; width: 64px; height: 64px; font-size: 12px; border-width: 2px; }
+      .copy { font-size: 13px; line-height: 27px; }
+      .choices { gap: 7px; }
+      button { font-size: 12px; }
+    }
+    @media (max-width: 380px) {
+      .choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .choices .wide { grid-column: span 1; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="stamp" aria-label="已跑路，勿念">已跑路<br>勿念</div>
+  <main class="page">
+    <div class="caution-tape" aria-hidden="true"><span>跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 跑路了 </span></div>
+    <header class="headline">
+      <h1>我们跑路了</h1>
+      <p class="subhead">这回是真的，<strong>人已经在火星了</strong>。</p>
+    </header>
+
+    <section class="first-part" aria-labelledby="apology-title">
+      <h2 id="apology-title">【 对不起 】</h2>
+      <p class="copy">抱歉了，我们欺骗了你。但这个社会就是如此，人心难测难防，永远猜不透。</p>
+      <p class="copy">希望你在以后别太相信人了，有时候你的一份信任，真的容易换来一份失望。</p>
+    </section>
+
+    <hr>
+
+    <section aria-label="金钱和信任">
+      <p class="copy">金钱很容易让人迷失自我，这个网络更是残酷无情，你无法看透。</p>
+      <p class="copy">不好意思了，希望这次教训能让你更明白，也别太觉得失望。</p>
+      <p class="copy">就当这次教训吧，<strong>我们也需要钱过日子。</strong></p>
+    </section>
+
+    <hr>
+
+    <section aria-label="再次道歉">
+      <p class="copy">也许这次会让你感受到打击，但是不要失望，<strong>钱没了可以再赚</strong>，没什么的。</p>
+      <p class="copy">再次跟你说声：<strong>对不起。</strong></p>
+    </section>
+
+    <hr>
+
+    <section aria-labelledby="facts-title">
+      <h2 id="facts-title" class="orange truth-heading">【 一些实话 】</h2>
+      <p class="copy">你充钱的时候：老板大气！</p>
+      <p class="copy">你退款的时候：对方已开启好友验证。</p>
+      <p class="copy">你报警的时候：<strong>建议协商解决。</strong></p>
+      <p class="copy">最后买单的，还是你。</p>
+    </section>
+
+    <div class="choices" aria-label="演示按钮，不会发生真实操作">
+      <button type="button" data-message="对方已开启好友验证。">申请退款</button>
+      <button type="button" data-message="站长已经在火星了，暂时无法联系。">联系站长</button>
+      <button type="button" class="pay" data-message="这是截图复刻演示页面，不会扣款，也没有真实支付入口。">再充 500</button>
+      <button type="button" data-message="建议协商解决。">报警</button>
+      <button type="button" class="wide" data-message="这是一个恶搞网页的视觉复刻，并不对应真实法律服务。">找律师</button>
+      <button type="button" class="wide" data-message="下次还是要谨慎核实商家资质。">下次还敢</button>
+    </div>
+
+    <p class="small-note">非官方截图复刻演示页面 · 不提供真实支付或退款功能</p>
+  </main>
+
+  <dialog id="popup" aria-labelledby="popup-title">
+    <h3 id="popup-title">提示</h3>
+    <p id="popup-text"></p>
+    <form method="dialog"><button type="submit">知道了</button></form>
+  </dialog>
+  <script>
+    const dialog = document.getElementById('popup');
+    const popupText = document.getElementById('popup-text');
+    document.querySelectorAll('[data-message]').forEach(button => {
+      button.addEventListener('click', () => {
+        popupText.textContent = button.dataset.message;
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else window.alert(button.dataset.message);
+      });
+    });
+  </script>
+</body>
+</html>
